@@ -1,0 +1,3 @@
+include ':app:managerspecials'
+include ':app'
+rootProject.name = "Swiftly Manager Specials"
