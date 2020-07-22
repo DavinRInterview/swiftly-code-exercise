@@ -11,20 +11,4 @@ interface ManagerSpecialsApi {
 
     @GET("Swiftly-Systems/code-exercise-android/master/backup")
     fun getManagerSpecials(): Single<ManagerSpecialsResponse>
-
-    /*companion object {
-        fun create(): ManagerSpecialsApi {
-
-            val retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(
-                    RxJava2CallAdapterFactory.create())
-                .addConverterFactory(
-                    GsonConverterFactory.create())
-                .baseUrl("https://raw.githubusercontent.com/")
-                .build()
-
-            return retrofit.create(ManagerSpecialsApi::class.java)
-        }
-    }*/
-
 }

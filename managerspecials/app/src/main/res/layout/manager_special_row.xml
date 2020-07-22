@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <variable
-            name="specialsRow"
-            type="com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/manager_special_row_contents"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    android:id="@+id/manager_special_row_contents"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</LinearLayout>

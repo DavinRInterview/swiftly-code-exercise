@@ -12,4 +12,6 @@
     <string name="title_activity_manager_special">ManagerSpecialActivity</string>
 
     <string name="manager_specials_header">Manager\'s Special</string>
+
+    <string name="service_call_failure_message">"I\'m sorry, we failed to fetch the data"</string>
 </resources>

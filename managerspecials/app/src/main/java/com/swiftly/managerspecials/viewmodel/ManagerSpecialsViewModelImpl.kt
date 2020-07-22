@@ -3,13 +3,16 @@ package com.swiftly.managerspecials.viewmodel
 import com.swiftly.managerspecials.service.ManagerSpecialsRepository
 import com.swiftly.managerspecials.service.model.ManagerSpecialsItem
 import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
+import io.reactivex.Single
 
 
 class ManagerSpecialsViewModelImpl(val repository: ManagerSpecialsRepository) : ManagerSpecialsViewModel {
 
-    override fun getManagerSpecials() {
+    override fun getManagerSpecials(): Single<List<ManagerSpecialsRowItem>> {
         //execute data processing here
-        repository.getManagerSpecials()
+        return repository.getManagerSpecials().map {
+            groupItems(it.canvasUnit, it.managerSpecials)
+        }
     }
 
     private fun groupItems(width: Int, items: List<ManagerSpecialsItem>) : List<ManagerSpecialsRowItem> {
@@ -17,13 +20,17 @@ class ManagerSpecialsViewModelImpl(val repository: ManagerSpecialsRepository) : 
         var n = 0
         while (n < items.size) {
             val endIndex = findEndIndex(width, items, n)
-            val specials = ArrayList<ManagerSpecialsItem>()
-            if (endIndex > 0) {
+            if (endIndex > n) {
+                val specials = ArrayList<ManagerSpecialsItem>()
                 for (m in n..endIndex)
                     specials.add(items[m])
                 rowItems.add(ManagerSpecialsRowItem(width,specials))
+                n = endIndex+1
             } else {
+                val specials = ArrayList<ManagerSpecialsItem>()
                 specials.add(items[n])
+                rowItems.add(ManagerSpecialsRowItem(width, specials))
+                n++
             }
         }
         return rowItems
@@ -37,7 +44,7 @@ class ManagerSpecialsViewModelImpl(val repository: ManagerSpecialsRepository) : 
                 return m
             }
             if (currWidth > width) {
-                return -1
+                return index
             }
         }
         return -1
