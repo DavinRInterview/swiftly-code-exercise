@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Swiftly Manager Specials.iml" filepath="$PROJECT_DIR$/.idea/modules/Swiftly Manager Specials.iml" group="Swiftly Manager Specials" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="Swiftly Manager Specials/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/managerspecials/managerspecials.iml" filepath="$PROJECT_DIR$/.idea/modules/app/managerspecials/managerspecials.iml" group="Swiftly Manager Specials/app/managerspecials" />
+    </modules>
+  </component>
+</project>
