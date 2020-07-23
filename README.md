@@ -15,18 +15,15 @@ One activity and two fragments: Current Android standard, while debated, is to u
 
 Architecture: I deliberated on the Architecture (and use of DI) for a bit, and chose to go with MVVM with a repository. Given the ViewModel is right now one-to-one with the view, it's pretty much identical to a presenter, except data flow is only going one way (which is easy in this case because there's no interaction). All the preprocessing logic is in the ViewModel. The repository allowed me to create a Local data source for development, and can be used for data persistence if desired later.
 
-RecyclerView: RecyclerViews are the urrent Android standard for longer dynamic data displays, and are ideal for memory management with longer list of scrollable items. The individual Manager Special elements are ConstraintLayouts, but the rows are LinearLayouts. It might be possible to optimize this by changing to a different layout format, but it would require some thought on my end.
+RecyclerView and component views: RecyclerViews are the current Android standard for longer dynamic data displays, and are ideal for memory management with longer list of scrollable items. The individual Manager Special elements are ConstraintLayouts, but the rows are LinearLayouts. It might be possible to optimize this by changing to a different layout format, but it would require some thought on my end.
 
 Third Party Libraries:
-RxJava: Chose Reactive solution due to clean data handling; used RxJava due to familiarity, as well as conversation with Ryan in which he mentions his familiarity and use (so assuming it is likely used in the current application).
-
-Retrofit: Android standard network handling solution, easy to implement
-
-Dagger2: Android Standard for DI. Chose to use DI to reduce tight dependency relations, and bring it more inline with the application it would likely become a part of, although given there are so many ways to implement dagger it would likely require changes (I'm currently using a deprecated method, which I'd want to change if I were to move forward).
-
-Glide: The current Android standard for image loading, more responsive that Picasso and has current support.
-
-Gson: The standard, although Moshi is used a lot too. I picked over Moshi since Gson is adequate to our needs here, and it's cheaper to implement.
+* RxJava: Chose Reactive solution due to clean data handling; used RxJava due to familiarity, as well as conversation with Ryan in which he mentions his familiarity and use (so assuming it is likely used in the current application).
+* Retrofit: Android standard network handling solution, easy to implement
+* Dagger2: Android Standard for DI. Chose to use DI to reduce tight dependency relations, and bring it more inline with the application it would likely become a part of, although given there are so many ways to implement dagger it would likely require changes (I'm currently using a deprecated method, which I'd want to change if I were to move forward).
+* Glide: The current Android standard for image loading, more responsive that Picasso and has current support.
+* Gson: The standard, although Moshi is used a lot too. I picked over Moshi since Gson is adequate to our needs here, and it's cheaper to implement.
+* Mockito: Android standard mocking library for tests, is fairly lightweight and does what I neede dit to.
 
 Algorithm: I clarified with Karen that the expected behavior is "starting at a given item, if the subsequent items don't add up exactly to CanvasUnit, the item should be on a line by itself". So for Canvas size 16 and items 4 4 4 4 5, the 4 4 4 4 all go on a line together and the 5 goes by itself, but if you had 4 4 4 3 5, the initial 4 will be alone and the 4 4 4 3 5 will be on a line together. Given this, a greedy algorithm works well: with a nested loop, iterate forward from the current location - if you add up to CanvasUnit, put those items on a line; if you pass CanvasUnit (or make it to the end of the data set), put just the current one in, then move forward. Worst case is n^2. That's what I've implemented here.
 
