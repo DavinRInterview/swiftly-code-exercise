@@ -35,12 +35,23 @@ class ManagerSpecialsViewModelImpl(val repository: ManagerSpecialsRepository) : 
 
     override fun getManagerSpecials(): Single<List<ManagerSpecialsRowItem>> {
         return repository.getManagerSpecials().map {
-            groupItems(it.canvasUnit, it.managerSpecials)
+            groupItems(it.canvasUnit, dataValidation(it.canvasUnit, it.managerSpecials))
         }
     }
 
     @VisibleForTesting
-    private fun groupItems(width: Int, items: List<ManagerSpecialsItem>) : List<ManagerSpecialsRowItem> {
+    fun dataValidation(width: Int, items: List<ManagerSpecialsItem>) : List<ManagerSpecialsItem> {
+        val newItems = ArrayList<ManagerSpecialsItem>()
+        for (item in items) {
+            if (item.height > 0 && item.width > 0 && item.width <= width) {
+                newItems.add(item)
+            }
+        }
+        return newItems
+    }
+
+    @VisibleForTesting
+    fun groupItems(width: Int, items: List<ManagerSpecialsItem>) : List<ManagerSpecialsRowItem> {
         val rowItems = ArrayList<ManagerSpecialsRowItem>()
         var n = 0
         while (n < items.size) {
@@ -62,9 +73,9 @@ class ManagerSpecialsViewModelImpl(val repository: ManagerSpecialsRepository) : 
     }
 
     @VisibleForTesting
-    private fun findEndIndex(width: Int, items: List<ManagerSpecialsItem>, index: Int) : Int {
+    fun findEndIndex(width: Int, items: List<ManagerSpecialsItem>, index: Int) : Int {
         var currWidth = 0;
-        for (m in index..items.size-1) {
+        for (m in index until items.size) {
             currWidth += items[m].width
             if (currWidth == width) {
                 return m

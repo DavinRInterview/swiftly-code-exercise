@@ -38,6 +38,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.swiftly.managerspecials.R
 import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
+import kotlin.math.min
 
 class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private val parent: ViewGroup) :
     RecyclerView.ViewHolder(inflater.inflate(R.layout.manager_special_row, parent, false)) {
@@ -48,6 +49,7 @@ class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private va
         row = itemView.findViewById(R.id.manager_special_row_contents)
     }
 
+    @VisibleForTesting
     fun bind(rowData: ManagerSpecialsRowItem) {
 
         if (row != null && !row!!.isEmpty()) {
@@ -66,7 +68,7 @@ class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private va
             val newWidth = ((item.width.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - 50
             val newHeight = ((item.height.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - 30
             val smallerDimension = (newWidth * 0.45).toInt()
-            val smallerRatio = Math.min((item.width.toFloat() /rowData.canvasUnit), (item.height.toFloat() /rowData.canvasUnit))
+            val smallerRatio = min((item.width.toFloat() /rowData.canvasUnit), (item.height.toFloat() /rowData.canvasUnit))
             newView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 width = newWidth
                 height = newHeight
@@ -100,7 +102,7 @@ class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private va
                 val newWidth = ((item.width.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - augment
                 val newHeight = ((item.height.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - 30
                 val smallerDimension = (newWidth * 0.45).toInt()
-                val smallerRatio = Math.min((item.width.toFloat() /rowData.canvasUnit), (item.height.toFloat() /rowData.canvasUnit))
+                val smallerRatio = min((item.width.toFloat() /rowData.canvasUnit), (item.height.toFloat() /rowData.canvasUnit))
                 newView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                     width = newWidth
                     height = newHeight
@@ -126,10 +128,10 @@ class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private va
     }
 
     @VisibleForTesting
-    private fun scaleInternalViews(view : View, ratio: Float, dimension: Int) {
+    fun scaleInternalViews(view : View, ratio: Float, dimension: Int) {
         view.findViewById<ImageView>(R.id.product_image).updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            width = Math.min(dimension, (width * ratio).toInt())
-            height = Math.min(dimension, (height * ratio).toInt())
+            width = min(dimension, (width * ratio).toInt())
+            height = min(dimension, (height * ratio).toInt())
             leftMargin = (leftMargin * ratio).toInt()
             topMargin = (topMargin * ratio).toInt()
             bottomMargin = (bottomMargin * ratio).toInt()
