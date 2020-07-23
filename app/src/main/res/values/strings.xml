@@ -7,7 +7,7 @@
     <string name="manager_specials_fragment_button">Go To Manager Specials Fragment</string>
     <string name="previous">Previous</string>
 
-    <string name="launch_fragment_text">This is the launch fragment for the Manager Specials test application</string>
+    <string name="launch_fragment_text">Launch fragment/testing flag manager for the Manager Specials test application</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_manager_special">ManagerSpecialActivity</string>
 

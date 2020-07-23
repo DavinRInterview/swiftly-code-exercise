@@ -30,6 +30,6 @@ class ManagerSpecialsViewHolderTest {
 
     @Test
     fun testBind() {
-
+        //This is the test method in particular mentioned in the Readme that I'm hoping to fill out
     }
 }

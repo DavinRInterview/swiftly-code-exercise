@@ -11,9 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="20dp"
         android:text="@string/launch_fragment_text"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@id/manager_specials_fragment_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,8 +32,8 @@
 
     <Switch
         android:id="@+id/local_data_source_switch"
-        android:layout_width="280dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:checked="false"
         android:showText="true"
         android:textOff="Debug Data Off"
