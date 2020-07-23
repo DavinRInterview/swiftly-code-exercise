@@ -26,7 +26,7 @@ package com.swiftly.managerspecials.di
 
 import androidx.annotation.NonNull
 import com.swiftly.managerspecials.service.ManagerSpecialsApi
-import com.swiftly.managerspecials.service.ManagerSpecialsRepository
+import com.swiftly.managerspecials.service.ManagerSpecialsLocalDataSource
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -60,5 +60,11 @@ class ServiceModule {
     @Singleton
     fun provideManagerSpecialsApi(@NonNull retrofit: Retrofit) : ManagerSpecialsApi {
         return retrofit.create(ManagerSpecialsApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideManagerSpecialLocalDataSource() : ManagerSpecialsLocalDataSource {
+        return ManagerSpecialsLocalDataSource()
     }
 }

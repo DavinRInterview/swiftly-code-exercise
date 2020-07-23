@@ -24,8 +24,10 @@ SOFTWARE.
 
 package com.swiftly.managerspecials.di
 
+import android.content.Context
 import androidx.annotation.NonNull
 import com.swiftly.managerspecials.service.ManagerSpecialsApi
+import com.swiftly.managerspecials.service.ManagerSpecialsLocalDataSource
 import com.swiftly.managerspecials.service.ManagerSpecialsRepository
 import com.swiftly.managerspecials.service.model.ManagerSpecialsRepositoryImpl
 import com.swiftly.managerspecials.viewmodel.ManagerSpecialsViewModel
@@ -38,8 +40,9 @@ class ManagerSpecialsModule {
 
     @Provides
     @ManagerSpecialsScope
-    fun provideManagerSpecialsRepository(@NonNull managerSpecialsApi: ManagerSpecialsApi) : ManagerSpecialsRepository
-            = ManagerSpecialsRepositoryImpl(managerSpecialsApi)
+    fun provideManagerSpecialsRepository(@NonNull managerSpecialsApi: ManagerSpecialsApi, @NonNull localDataSource: ManagerSpecialsLocalDataSource,
+                                         @NonNull context: Context) : ManagerSpecialsRepository
+            = ManagerSpecialsRepositoryImpl(managerSpecialsApi, localDataSource, context)
 
     @Provides
     @ManagerSpecialsScope

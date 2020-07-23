@@ -24,17 +24,22 @@ SOFTWARE.
 
 package com.swiftly.managerspecials.service.model
 
+import android.content.Context
+import com.swiftly.managerspecials.R
 import com.swiftly.managerspecials.service.ManagerSpecialsApi
-import com.swiftly.managerspecials.service.ManagerSpecialsLocal
+import com.swiftly.managerspecials.service.ManagerSpecialsLocalDataSource
 import com.swiftly.managerspecials.service.ManagerSpecialsRepository
-import com.swiftly.managerspecials.service.model.ManagerSpecialsResponse
 import io.reactivex.Single
 
-class ManagerSpecialsRepositoryImpl(val api: ManagerSpecialsApi) : ManagerSpecialsRepository {
+class ManagerSpecialsRepositoryImpl(private val api: ManagerSpecialsApi, private val localDataSource: ManagerSpecialsLocalDataSource, private val context: Context) : ManagerSpecialsRepository {
 
     override fun getManagerSpecials(): Single<ManagerSpecialsResponse> {
         //can handle persistence and local vs remote fetch here
-        //return ManagerSpecialsLocal().getLocalManagerSpecials()
+        val sharedPrefs = context.getSharedPreferences(context.getString(R.string.local_data_prefs), Context.MODE_PRIVATE)
+        val localData = sharedPrefs.getBoolean(context.getString(R.string.local_data), false)
+        if (localData) {
+            return ManagerSpecialsLocalDataSource().getLocalManagerSpecials()
+        }
         return api.getManagerSpecials()
     }
 }

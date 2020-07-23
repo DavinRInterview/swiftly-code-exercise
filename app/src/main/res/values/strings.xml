@@ -11,6 +11,9 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_manager_special">ManagerSpecialActivity</string>
 
+    <string name="local_data_prefs">localdataprefs</string>
+    <string name="local_data">localdata</string>
+
     <string name="manager_specials_header">Manager\'s Special</string>
 
     <string name="service_call_failure_message">"I\'m sorry, we failed to fetch the data"</string>

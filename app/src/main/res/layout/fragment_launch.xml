@@ -26,4 +26,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/launch_fragment_header" />
+
+    <Switch
+        android:id="@+id/local_data_source_switch"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:checked="false"
+        android:showText="true"
+        android:textOff="Debug Data Off"
+        android:textOn="Debug Data On"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/manager_specials_fragment_button"
+        app:layout_constraintStart_toStartOf="@+id/manager_specials_fragment_button"
+        app:layout_constraintTop_toBottomOf="@+id/manager_specials_fragment_button"
+        app:layout_constraintVertical_bias="0.086" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

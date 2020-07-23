@@ -24,12 +24,14 @@ SOFTWARE.
 
 package com.swiftly.managerspecials.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Switch
 import androidx.navigation.fragment.findNavController
 import com.swiftly.managerspecials.R
 
@@ -51,6 +53,14 @@ class LaunchFragment : Fragment() {
 
         view.findViewById<Button>(R.id.manager_specials_fragment_button).setOnClickListener {
             findNavController().navigate(R.id.action_LaunchFragment_to_ManagerSpecialsFragment)
+        }
+
+        view.findViewById<Switch>(R.id.local_data_source_switch).setOnCheckedChangeListener { compoundButton, isChecked ->
+            val sharedPrefs = activity!!.getSharedPreferences(getString(R.string.local_data_prefs), Context.MODE_PRIVATE)
+            with (sharedPrefs.edit()) {
+                this.putBoolean(getString(R.string.local_data), isChecked)
+                commit()
+            }
         }
     }
 }

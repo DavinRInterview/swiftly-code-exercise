@@ -24,6 +24,7 @@ SOFTWARE.
 
 package com.swiftly.managerspecials.viewmodel
 
+import androidx.annotation.VisibleForTesting
 import com.swiftly.managerspecials.service.ManagerSpecialsRepository
 import com.swiftly.managerspecials.service.model.ManagerSpecialsItem
 import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
@@ -38,6 +39,7 @@ class ManagerSpecialsViewModelImpl(val repository: ManagerSpecialsRepository) : 
         }
     }
 
+    @VisibleForTesting
     private fun groupItems(width: Int, items: List<ManagerSpecialsItem>) : List<ManagerSpecialsRowItem> {
         val rowItems = ArrayList<ManagerSpecialsRowItem>()
         var n = 0
@@ -59,6 +61,7 @@ class ManagerSpecialsViewModelImpl(val repository: ManagerSpecialsRepository) : 
         return rowItems
     }
 
+    @VisibleForTesting
     private fun findEndIndex(width: Int, items: List<ManagerSpecialsItem>, index: Int) : Int {
         var currWidth = 0;
         for (m in index..items.size-1) {
