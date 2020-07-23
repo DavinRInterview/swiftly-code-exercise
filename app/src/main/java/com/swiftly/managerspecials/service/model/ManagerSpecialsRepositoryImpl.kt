@@ -28,6 +28,7 @@ import android.content.Context
 import com.swiftly.managerspecials.R
 import com.swiftly.managerspecials.service.ManagerSpecialsApi
 import com.swiftly.managerspecials.service.ManagerSpecialsLocalDataSource
+import com.swiftly.managerspecials.service.ManagerSpecialsLocalDataSourceImpl
 import com.swiftly.managerspecials.service.ManagerSpecialsRepository
 import io.reactivex.Single
 
@@ -38,7 +39,7 @@ class ManagerSpecialsRepositoryImpl(private val api: ManagerSpecialsApi, private
         val sharedPrefs = context.getSharedPreferences(context.getString(R.string.local_data_prefs), Context.MODE_PRIVATE)
         val localData = sharedPrefs.getBoolean(context.getString(R.string.local_data), false)
         if (localData) {
-            return ManagerSpecialsLocalDataSource().getLocalManagerSpecials()
+            return localDataSource.getLocalManagerSpecials()
         }
         return api.getManagerSpecials()
     }
