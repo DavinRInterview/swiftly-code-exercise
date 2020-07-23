@@ -7,7 +7,7 @@ This code should be ready to install via Android Studio - just pull the code fro
 Note, this application has a launch screen with a toggle for local data versus remote (it defaults to local data off). Set that to whichever you want, then click the button to launch the feature screen.
 
 # Process Notes
-Quick about the repo: there are a few artifact files because my .gitignore file got messed up at one point
+Quick note about artifacts: there may be a couple files that could/should be ignored because my .gitignore file got messed up at one point
 
 Launch screen and Manager Specials screen: Per conversation with Karen, I confirmed Manager Specials were a feature, rather than separate app. Done to better imitate scenario in which it will exist, and also facilitate screen for testing flags and settings. Can also be extended to support further related screens for testing. On border of YAGNI, but very little cost for good return. I also added a toggle on the launch screen for local debug data, which allowed me to develop UI separate from remote dependencies and verify small changes. I'd likely expand the testing toggles if I had further needs. The launch screen looks messy, but I'm not that worried about it since it's just for testing purposes.
 
