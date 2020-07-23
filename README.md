@@ -40,8 +40,9 @@ Localization: I only had a pair of local strings, the header and the alert for f
 
 Testing: I implemented UTs to cover all of the ViewModel logic happy paths, which should ideally have been the bulk of my logic. The Other large code class is the RecyclerView's Adapter (or rather the Adapter's ViewHolder), but it's a challenge - fundamentally a UI class, and the "logic" is mostly arithmetic for the most part all in the ViewHolder callbacks. I'll continue to think about how I can implement tests there, it's set up for them. Further edge case testing, some UI testing, and end-to-end would all be valuable.
 
-Issues: While the elements resizing dynamically works, sooner or later when things get small enough it won't render well (honestly the small elements were on the edge of this as it was, and might be more so on smaller devices, like watches)
+Issues: While the elements resizing dynamically works, sooner or later when things get small enough it won't render well (honestly the small elements were on the edge of this as it was, and might be more so on smaller devices, like watches). Also, people who use different font sizes (particularly bigger ones for accessibility) are not going to get a very pretty experience with this right now.
 
+Potential further effort: There are several things not currently handled here, or not handled the way I'd prefer they were. As of right now there's no data persistence, which might not be a huge deal depending on what the screen is being used for, but could be useful. Tied to that, right now there's no handling for screen rotation, which is definitely something I'd look to handle going forward. I mentioned the testing I'd like to add, and the need for proper copy and localization, but I also did a simple accessibility test on it, and, navigation through the list doesn't work well right now - recyclerviews sometimes struggle with that anyway, but particularly due to the structure here it will navigate the linear line fine, but not down the screen. I would definitely want to fix that if I were to continue with it.   
 
 # License
 MIT License
