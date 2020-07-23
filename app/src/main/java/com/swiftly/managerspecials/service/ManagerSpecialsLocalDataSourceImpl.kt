@@ -51,7 +51,27 @@ class ManagerSpecialsLocalDataSourceImpl :
             "      \"width\": 16\n" +
             "    },\n" +
             "    {\n" +
-            "      \"display_name\": \"Onion Flavored Rings\",\n" +
+            "      \"display_name\": \"Null Verification Missing Height\",\n" +
+            "      \"height\": 8,\n" +
+            "      \"imageUrl\": \"https://raw.githubusercontent.com/prestoqinc/code-exercise-ios/master/images/J.png\",\n" +
+            "      \"original_price\": \"2.00\",\n" +
+            "      \"price\": \"1.00\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"display_name\": \"Null Verification Missing Width\",\n" +
+            "      \"imageUrl\": \"https://raw.githubusercontent.com/prestoqinc/code-exercise-ios/master/images/J.png\",\n" +
+            "      \"original_price\": \"2.00\",\n" +
+            "      \"price\": \"1.00\",\n" +
+            "      \"width\": 8\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"display_name\": \"Null Verification Missing Both\",\n" +
+            "      \"imageUrl\": \"https://raw.githubusercontent.com/prestoqinc/code-exercise-ios/master/images/J.png\",\n" +
+            "      \"original_price\": \"2.00\",\n" +
+            "      \"price\": \"1.00\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"display_name\": \"\",\n" +
             "      \"height\": 10,\n" +
             "      \"imageUrl\": \"https://raw.githubusercontent.com/prestoqinc/code-exercise-ios/master/images/J.png\",\n" +
             "      \"original_price\": \"2.00\",\n" +
@@ -59,28 +79,51 @@ class ManagerSpecialsLocalDataSourceImpl :
             "      \"width\": 8\n" +
             "    },\n" +
             "    {\n" +
-            "      \"display_name\": \"Kikkoman Less Sodium Soy Sauce\",\n" +
+            "      \"display_name\": \"Kikkoman Less Sodium Soy Sauce No Pic\",\n" +
             "      \"height\": 8,\n" +
-            "      \"imageUrl\": \"https://raw.githubusercontent.com/prestoqinc/code-exercise-ios/master/images/K.png\",\n" +
+            "      \"imageUrl\": \"\",\n" +
             "      \"original_price\": \"2.00\",\n" +
             "      \"price\": \"1.00\",\n" +
             "      \"width\": 8\n" +
             "    },\n" +
             "    {\n" +
-            "      \"display_name\": \"Organic Romaine Hearts\",\n" +
+            "      \"display_name\": \"Too Wide Organic Romaine Hearts\",\n" +
             "      \"height\": 4,\n" +
             "      \"imageUrl\": \"https://raw.githubusercontent.com/prestoqinc/code-exercise-ios/master/images/L.png\",\n" +
             "      \"original_price\": \"3.92\",\n" +
             "      \"price\": \"3.92\",\n" +
-            "      \"width\": 14\n" +
+            "      \"width\": 17\n" +
             "    },\n" +
             "    {\n" +
-            "      \"display_name\": \"Navel Oranges 4LBS\",\n" +
+            "      \"display_name\": \"Navel Oranges 4LBS No Price\",\n" +
             "      \"height\": 4,\n" +
             "      \"imageUrl\": \"https://raw.githubusercontent.com/prestoqinc/code-exercise-ios/master/images/L.png\",\n" +
             "      \"original_price\": \"2.23\",\n" +
-            "      \"price\": \"1.29\",\n" +
+            "      \"price\": \"\",\n" +
             "      \"width\": 4\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"display_name\": \"Navel Oranges 4LBS Missing Field\",\n" +
+            "      \"height\": 4,\n" +
+            "      \"imageUrl\": \"https://raw.githubusercontent.com/prestoqinc/code-exercise-ios/master/images/L.png\",\n" +
+            "      \"original_price\": \"2.23\",\n" +
+            "      \"width\": 4\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"display_name\": \"0 Width Organic Romaine Hearts\",\n" +
+            "      \"height\": 4,\n" +
+            "      \"imageUrl\": \"https://raw.githubusercontent.com/prestoqinc/code-exercise-ios/master/images/L.png\",\n" +
+            "      \"original_price\": \"3.92\",\n" +
+            "      \"price\": \"3.92\",\n" +
+            "      \"width\": 0\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"display_name\": \"0 Height Organic Romaine Hearts\",\n" +
+            "      \"height\": 0,\n" +
+            "      \"imageUrl\": \"https://raw.githubusercontent.com/prestoqinc/code-exercise-ios/master/images/L.png\",\n" +
+            "      \"original_price\": \"3.92\",\n" +
+            "      \"price\": \"3.92\",\n" +
+            "      \"width\": 17\n" +
             "    },\n" +
             "    {\n" +
             "      \"display_name\": \"Cheddar & Sour Ruffles\",\n" +
