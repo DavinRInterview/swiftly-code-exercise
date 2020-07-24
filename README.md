@@ -26,6 +26,7 @@ Third Party Libraries:
 * Mockito: Android standard mocking library for tests, is fairly lightweight and does what I neede dit to.
 
 Algorithm: I clarified with Karen that the expected behavior is "starting at a given item, if the subsequent items don't add up exactly to CanvasUnit, the item should be on a line by itself". So for Canvas size 16 and items 4 4 4 4 5, the 4 4 4 4 all go on a line together and the 5 goes by itself, but if you had 4 4 4 3 5, the initial 4 will be alone and the 4 4 4 3 5 will be on a line together. Given this, a greedy algorithm works well: with a nested loop, iterate forward from the current location - if you add up to CanvasUnit, put those items on a line; if you pass CanvasUnit (or make it to the end of the data set), put just the current one in, then move forward. Worst case is n^2. That's what I've implemented here.
+Note: per the feedback from Ryan, I've updated the algorithm to fill up to CanvasUnit. 
 
 Preprocessing data: To properly capitalize off of the RecyclerView's ability to free up memory, the data needs to be grouped as desired for display. Due to the greedy algorithm processing from the start of the data set, without preprocessing the grouping algorithm would need to be rerun from the top for every item removed and readded to the RecyclerView.
 
