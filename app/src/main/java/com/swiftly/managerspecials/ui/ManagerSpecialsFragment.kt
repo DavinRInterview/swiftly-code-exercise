@@ -33,6 +33,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.swiftly.managerspecials.R
+import com.swiftly.managerspecials.di.ManagerSpecialsComponentProvider
 import com.swiftly.managerspecials.service.model.ManagerSpecialsItem
 import com.swiftly.managerspecials.ui.adapter.ManagerSpecialsAdapter
 import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
@@ -56,7 +57,7 @@ class ManagerSpecialsFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        (activity as MainActivity).managerSpecialsComponent.inject(this)
+        (activity as ManagerSpecialsComponentProvider).getManagerSpecialsComponent().inject(this)
     }
 
     override fun onCreateView(

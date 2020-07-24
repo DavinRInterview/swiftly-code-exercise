@@ -33,11 +33,12 @@ import android.view.MenuItem
 import com.swiftly.managerspecials.ManagerSpecialsApplication
 import com.swiftly.managerspecials.R
 import com.swiftly.managerspecials.di.ManagerSpecialsComponent
+import com.swiftly.managerspecials.di.ManagerSpecialsComponentProvider
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ManagerSpecialsComponentProvider {
 
-    lateinit var managerSpecialsComponent: ManagerSpecialsComponent
+    private lateinit var managerSpecialsComponent: ManagerSpecialsComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,5 +64,9 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun getManagerSpecialsComponent(): ManagerSpecialsComponent {
+        return managerSpecialsComponent
     }
 }

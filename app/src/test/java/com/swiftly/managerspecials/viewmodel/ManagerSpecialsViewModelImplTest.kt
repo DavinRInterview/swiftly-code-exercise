@@ -167,16 +167,6 @@ class ManagerSpecialsViewModelImplTest {
     }
 
     @Test
-    fun testFindEndIndex() {
-        var endIndex = viewModel.findEndIndex(16, testList, 0)
-        assertEquals(0, endIndex)
-        endIndex = viewModel.findEndIndex(16, testList, 1)
-        assertEquals(2, endIndex)
-        endIndex = viewModel.findEndIndex(16, testList, 3)
-        assertEquals(3, endIndex)
-    }
-
-    @Test
     fun testGroupItems() {
         var resultList = viewModel.groupItems(16, testList)
         assertEquals(4, resultList.size)

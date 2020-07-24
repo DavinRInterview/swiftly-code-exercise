@@ -53,37 +53,21 @@ class ManagerSpecialsViewModelImpl(val repository: ManagerSpecialsRepository) : 
     @VisibleForTesting
     fun groupItems(width: Int, items: List<ManagerSpecialsItem>) : List<ManagerSpecialsRowItem> {
         val rowItems = ArrayList<ManagerSpecialsRowItem>()
-        var n = 0
-        while (n < items.size) {
-            val endIndex = findEndIndex(width, items, n)
-            if (endIndex > n) {
-                val specials = ArrayList<ManagerSpecialsItem>()
-                for (m in n..endIndex)
-                    specials.add(items[m])
-                rowItems.add(ManagerSpecialsRowItem(width,specials))
-                n = endIndex+1
-            } else {
-                val specials = ArrayList<ManagerSpecialsItem>()
-                specials.add(items[n])
-                rowItems.add(ManagerSpecialsRowItem(width, specials))
-                n++
-            }
+        if (items.isEmpty()) {
+            return rowItems
         }
+        var cumulativeWidth = 0;
+        var newItems = ArrayList<ManagerSpecialsItem>()
+        for (item in items) {
+            cumulativeWidth += item.width
+            if (cumulativeWidth > width) {
+                rowItems.add(ManagerSpecialsRowItem(width, newItems))
+                cumulativeWidth = item.width;
+                newItems = ArrayList()
+            }
+            newItems.add(item)
+        }
+        rowItems.add(ManagerSpecialsRowItem(width, newItems))
         return rowItems
-    }
-
-    @VisibleForTesting
-    fun findEndIndex(width: Int, items: List<ManagerSpecialsItem>, index: Int) : Int {
-        var currWidth = 0;
-        for (m in index until items.size) {
-            currWidth += items[m].width
-            if (currWidth == width) {
-                return m
-            }
-            if (currWidth > width) {
-                return index
-            }
-        }
-        return -1
     }
 }

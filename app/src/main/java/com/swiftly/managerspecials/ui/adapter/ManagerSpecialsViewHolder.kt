@@ -55,8 +55,7 @@ class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private va
         if (row != null && !row!!.isEmpty()) {
             return
         }
-        if (rowData.managerSpecialsItemList.size == 1) {
-            val item = rowData.managerSpecialsItemList[0]
+        for (item in rowData.managerSpecialsItemList) {
             val newView = inflater.inflate(R.layout.manager_special_item, row, false)
             row?.addView(newView)
             newView.findViewById<TextView>(R.id.product_name).text = item.displayName
@@ -65,17 +64,21 @@ class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private va
                 text = item.originalPrice
             }
             newView.findViewById<TextView>(R.id.price_text).text = item.price
-            val newWidth = ((item.width.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - 50
+            val augment = (25 * (rowData.managerSpecialsItemList.size + 1)) / rowData.managerSpecialsItemList.size
+            val newWidth = ((item.width.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - augment
             val newHeight = ((item.height.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - 30
             val smallerDimension = (newWidth * 0.45).toInt()
+            val heightDimension = (newHeight * 0.4).toInt()
             val smallerRatio = min((item.width.toFloat() /rowData.canvasUnit), (item.height.toFloat() /rowData.canvasUnit))
             newView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 width = newWidth
                 height = newHeight
+                leftMargin = 25
                 bottomMargin = 20
                 topMargin = 10
-                leftMargin = 25
-                rightMargin = 25
+                if (item == rowData.managerSpecialsItemList.last()) {
+                    rightMargin = 25
+                }
             }
             newView.setPadding(
                 (newView.paddingLeft * smallerRatio).toInt(),
@@ -83,55 +86,18 @@ class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private va
                 (newView.paddingRight * smallerRatio).toInt(),
                 (newView.paddingBottom * smallerRatio).toInt()
             )
-            scaleInternalViews(newView, smallerRatio, smallerDimension)
+            scaleInternalViews(newView, smallerRatio, smallerDimension, heightDimension)
             Glide.with(parent.context)
                 .load(item.imageUrl)
                 .into(newView.findViewById(R.id.product_image))
         }
-        else {
-            for (item in rowData.managerSpecialsItemList) {
-                val newView = inflater.inflate(R.layout.manager_special_item, row, false)
-                row?.addView(newView)
-                newView.findViewById<TextView>(R.id.product_name).text = item.displayName
-                newView.findViewById<TextView>(R.id.original_price_text).apply {
-                    paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    text = item.originalPrice
-                }
-                newView.findViewById<TextView>(R.id.price_text).text = item.price
-                val augment = (25 * (rowData.managerSpecialsItemList.size + 1)) / rowData.managerSpecialsItemList.size
-                val newWidth = ((item.width.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - augment
-                val newHeight = ((item.height.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - 30
-                val smallerDimension = (newWidth * 0.45).toInt()
-                val smallerRatio = min((item.width.toFloat() /rowData.canvasUnit), (item.height.toFloat() /rowData.canvasUnit))
-                newView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                    width = newWidth
-                    height = newHeight
-                    leftMargin = 25
-                    bottomMargin = 20
-                    topMargin = 10
-                    if (item == rowData.managerSpecialsItemList.last()) {
-                        rightMargin = 25
-                    }
-                }
-                newView.setPadding(
-                    (newView.paddingLeft * smallerRatio).toInt(),
-                    (newView.paddingTop * smallerRatio).toInt(),
-                    (newView.paddingRight * smallerRatio).toInt(),
-                    (newView.paddingBottom * smallerRatio).toInt()
-                )
-                scaleInternalViews(newView, smallerRatio, smallerDimension)
-                Glide.with(parent.context)
-                    .load(item.imageUrl)
-                    .into(newView.findViewById(R.id.product_image))
-            }
-        }
     }
 
     @VisibleForTesting
-    fun scaleInternalViews(view : View, ratio: Float, dimension: Int) {
+    fun scaleInternalViews(view : View, ratio: Float, widthDimension: Int, heightDimension: Int) {
         view.findViewById<ImageView>(R.id.product_image).updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            width = min(dimension, (width * ratio).toInt())
-            height = min(dimension, (height * ratio).toInt())
+            width = min(widthDimension, (width * ratio).toInt())
+            height = min(widthDimension, (height * ratio).toInt())
             leftMargin = (leftMargin * ratio).toInt()
             topMargin = (topMargin * ratio).toInt()
             bottomMargin = (bottomMargin * ratio).toInt()
@@ -139,6 +105,7 @@ class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private va
         val nameView = view.findViewById<TextView>(R.id.product_name)
         nameView.textSize = nameView.textSize * ratio
         nameView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            height = heightDimension
             leftMargin = (leftMargin * ratio).toInt()
             rightMargin = (rightMargin * ratio).toInt()
             bottomMargin = (bottomMargin * ratio).toInt()
