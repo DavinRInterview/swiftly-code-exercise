@@ -57,7 +57,6 @@ class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private va
         }
         for (item in rowData.managerSpecialsItemList) {
             val newView = inflater.inflate(R.layout.manager_special_item, row, false)
-            row?.addView(newView)
             newView.findViewById<TextView>(R.id.product_name).text = item.displayName
             newView.findViewById<TextView>(R.id.original_price_text).apply {
                 paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -67,17 +66,19 @@ class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private va
             val augment = (25 * (rowData.managerSpecialsItemList.size + 1)) / rowData.managerSpecialsItemList.size
             val newWidth = ((item.width.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - augment
             val newHeight = ((item.height.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - 30
-            val smallerDimension = (newWidth * 0.45).toInt()
+            val smallerDimension = min((newWidth * 0.45).toInt(), (newHeight * 0.45).toInt())
             val heightDimension = (newHeight * 0.4).toInt()
             val smallerRatio = min((item.width.toFloat() /rowData.canvasUnit), (item.height.toFloat() /rowData.canvasUnit))
+            val paddingUnit = newView.paddingBottom
             newView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 width = newWidth
                 height = newHeight
-                leftMargin = 25
-                bottomMargin = 20
-                topMargin = 10
+                //TODO: This is a hack, and an ugly one. Figure out why the set margins aren't rendering right
+                leftMargin = paddingUnit * 2
+                bottomMargin = (paddingUnit * 1.5).toInt()
+                topMargin = (paddingUnit * .75).toInt()
                 if (item == rowData.managerSpecialsItemList.last()) {
-                    rightMargin = 25
+                    rightMargin = paddingUnit * 2
                 }
             }
             newView.setPadding(
@@ -90,6 +91,7 @@ class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private va
             Glide.with(parent.context)
                 .load(item.imageUrl)
                 .into(newView.findViewById(R.id.product_image))
+            row?.addView(newView)
         }
     }
 
