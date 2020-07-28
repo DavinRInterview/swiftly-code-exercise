@@ -25,6 +25,7 @@ SOFTWARE.
 package com.swiftly.managerspecials.service.model
 
 import android.content.Context
+import com.swiftly.managerspecials.BuildConfig
 import com.swiftly.managerspecials.R
 import com.swiftly.managerspecials.service.ManagerSpecialsApi
 import com.swiftly.managerspecials.service.ManagerSpecialsLocalDataSource
@@ -34,14 +35,20 @@ import io.reactivex.Single
 class ManagerSpecialsRepositoryImpl(private val api: ManagerSpecialsApi, private val localDataSource: ManagerSpecialsLocalDataSource, private val context: Context) : ManagerSpecialsRepository {
 
     override fun getManagerSpecials(): Single<ManagerSpecialsResponse> {
-        val sharedPrefs = context.getSharedPreferences(context.getString(R.string.testing_prefs), Context.MODE_PRIVATE)
-        val testServiceFailure = sharedPrefs.getBoolean(context.getString(R.string.service_failure), false)
-        if (testServiceFailure) {
-            return Single.error(Throwable())
-        }
-        val localData = sharedPrefs.getBoolean(context.getString(R.string.local_data), false)
-        if (localData) {
-            return localDataSource.getLocalManagerSpecials()
+        if (BuildConfig.DEBUG) {
+            val sharedPrefs = context.getSharedPreferences(
+                context.getString(R.string.testing_prefs),
+                Context.MODE_PRIVATE
+            )
+            val testServiceFailure =
+                sharedPrefs.getBoolean(context.getString(R.string.service_failure), false)
+            if (testServiceFailure) {
+                return Single.error(Throwable())
+            }
+            val localData = sharedPrefs.getBoolean(context.getString(R.string.local_data), false)
+            if (localData) {
+                return localDataSource.getLocalManagerSpecials()
+            }
         }
         return api.getManagerSpecials()
     }
