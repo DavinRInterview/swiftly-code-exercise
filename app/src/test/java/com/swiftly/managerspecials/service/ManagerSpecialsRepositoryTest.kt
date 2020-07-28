@@ -20,7 +20,7 @@ class ManagerSpecialsRepositoryTest {
 
     @Before
     fun setUp() {
-        Mockito.`when`(mockContext.getString(R.string.local_data_prefs)).thenReturn("localdataprefs")
+        Mockito.`when`(mockContext.getString(R.string.testing_prefs)).thenReturn("localdataprefs")
         Mockito.`when`(mockContext.getSharedPreferences("localdataprefs", Context.MODE_PRIVATE)).thenReturn(mockSharedPreferences)
         Mockito.`when`(mockContext.getString(R.string.local_data)).thenReturn("localdata")
     }

@@ -34,8 +34,11 @@ import io.reactivex.Single
 class ManagerSpecialsRepositoryImpl(private val api: ManagerSpecialsApi, private val localDataSource: ManagerSpecialsLocalDataSource, private val context: Context) : ManagerSpecialsRepository {
 
     override fun getManagerSpecials(): Single<ManagerSpecialsResponse> {
-        //can handle persistence and local vs remote fetch here
-        val sharedPrefs = context.getSharedPreferences(context.getString(R.string.local_data_prefs), Context.MODE_PRIVATE)
+        val sharedPrefs = context.getSharedPreferences(context.getString(R.string.testing_prefs), Context.MODE_PRIVATE)
+        val testServiceFailure = sharedPrefs.getBoolean(context.getString(R.string.service_failure), false)
+        if (testServiceFailure) {
+            return Single.error(Throwable())
+        }
         val localData = sharedPrefs.getBoolean(context.getString(R.string.local_data), false)
         if (localData) {
             return localDataSource.getLocalManagerSpecials()

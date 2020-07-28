@@ -52,14 +52,14 @@ class ManagerSpecialsViewModelImpl(private val repository: ManagerSpecialsReposi
 
     override fun updateSpecialsData() {
         loading.set(true)
+        if (!specialsList.isEmpty()) {
+            specialsList.clear()
+        }
         repository.getManagerSpecials()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe ({
                 loading.set(false)
-                if (!specialsList.isEmpty()) {
-                    specialsList.clear()
-                }
                 specialsList.addAll(groupItems(it.canvasUnit, dataValidation(it.canvasUnit, it.managerSpecials)))
             }, {
                 loading.set(false)

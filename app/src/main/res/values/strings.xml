@@ -8,8 +8,9 @@
     <string name="launch_fragment_text">Launch fragment/testing flag manager for the Manager Specials test application</string>
     <string name="title_activity_manager_special">ManagerSpecialActivity</string>
 
-    <string name="local_data_prefs">localdataprefs</string>
+    <string name="testing_prefs">testingprefs</string>
     <string name="local_data">localdata</string>
+    <string name="service_failure">servicefailure</string>
 
     <string name="manager_specials_header">Manager\'s Special</string>
 
