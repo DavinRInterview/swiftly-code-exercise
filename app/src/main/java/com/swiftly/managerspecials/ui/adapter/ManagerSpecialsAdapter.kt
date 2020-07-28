@@ -29,8 +29,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
 
-class ManagerSpecialsAdapter(private val data: List<ManagerSpecialsRowItem>) :
-    RecyclerView.Adapter<ManagerSpecialsViewHolder>() {
+class ManagerSpecialsAdapter() :
+    RecyclerView.Adapter<ManagerSpecialsViewHolder>(), BindableAdapter<List<ManagerSpecialsRowItem>> {
+
+    private lateinit var data: List<ManagerSpecialsRowItem>
+
+    override fun setData(data: List<ManagerSpecialsRowItem>) {
+        this.data = data
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManagerSpecialsViewHolder {
         val inflater = LayoutInflater.from(parent.context)

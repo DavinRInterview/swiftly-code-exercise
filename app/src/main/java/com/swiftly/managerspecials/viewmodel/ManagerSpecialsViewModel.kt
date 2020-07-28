@@ -24,9 +24,15 @@ SOFTWARE.
 
 package com.swiftly.managerspecials.viewmodel
 
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableList
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.swiftly.managerspecials.ui.adapter.ManagerSpecialsViewHolder
 import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
-import io.reactivex.Single
 
 interface ManagerSpecialsViewModel {
-    fun getManagerSpecials(): Single<List<ManagerSpecialsRowItem>>
+    fun getLoading(): ObservableBoolean
+    fun getSpecialsList(): ObservableList<ManagerSpecialsRowItem>
+    fun getAdapter(): Adapter<ManagerSpecialsViewHolder>
+    fun updateSpecialsData()
 }

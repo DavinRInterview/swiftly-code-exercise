@@ -25,18 +25,44 @@ SOFTWARE.
 package com.swiftly.managerspecials.viewmodel
 
 import androidx.annotation.VisibleForTesting
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableList
+import androidx.recyclerview.widget.RecyclerView
 import com.swiftly.managerspecials.service.ManagerSpecialsRepository
 import com.swiftly.managerspecials.service.model.ManagerSpecialsItem
+import com.swiftly.managerspecials.ui.adapter.ManagerSpecialsAdapter
+import com.swiftly.managerspecials.ui.adapter.ManagerSpecialsViewHolder
 import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
-import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
-class ManagerSpecialsViewModelImpl(val repository: ManagerSpecialsRepository) : ManagerSpecialsViewModel {
+class ManagerSpecialsViewModelImpl(private val repository: ManagerSpecialsRepository) : ManagerSpecialsViewModel {
 
-    override fun getManagerSpecials(): Single<List<ManagerSpecialsRowItem>> {
-        return repository.getManagerSpecials().map {
-            groupItems(it.canvasUnit, dataValidation(it.canvasUnit, it.managerSpecials))
-        }
+    private val loading = ObservableBoolean(true)
+    private val specialsList = ObservableArrayList<ManagerSpecialsRowItem>()
+    private val adapter: RecyclerView.Adapter<ManagerSpecialsViewHolder>
+
+    init {
+        adapter = ManagerSpecialsAdapter()
+        adapter.setHasStableIds(true)
+    }
+
+    override fun updateSpecialsData() {
+        repository.getManagerSpecials()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe ({
+                    loading.set(false)
+                    if (!specialsList.isEmpty()) {
+                        specialsList.clear()
+                    }
+                    specialsList.addAll(groupItems(it.canvasUnit, dataValidation(it.canvasUnit, it.managerSpecials)))
+                }, {
+                    loading.set(false)
+                    //failure
+                })
     }
 
     @VisibleForTesting
@@ -70,4 +96,11 @@ class ManagerSpecialsViewModelImpl(val repository: ManagerSpecialsRepository) : 
         rowItems.add(ManagerSpecialsRowItem(width, newItems))
         return rowItems
     }
+
+    override fun getLoading(): ObservableBoolean = loading
+
+    override fun getSpecialsList(): ObservableList<ManagerSpecialsRowItem> = specialsList
+
+    override fun getAdapter(): RecyclerView.Adapter<ManagerSpecialsViewHolder> = adapter
+
 }
