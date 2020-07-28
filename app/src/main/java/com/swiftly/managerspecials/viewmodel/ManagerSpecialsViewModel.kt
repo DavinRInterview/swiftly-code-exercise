@@ -32,7 +32,9 @@ import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
 
 interface ManagerSpecialsViewModel {
     fun getLoading(): ObservableBoolean
+    fun getShowError(): ObservableBoolean
     fun getSpecialsList(): ObservableList<ManagerSpecialsRowItem>
     fun getAdapter(): Adapter<ManagerSpecialsViewHolder>
+    fun dismissAlert()
     fun updateSpecialsData()
 }

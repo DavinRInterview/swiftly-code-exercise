@@ -30,7 +30,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.swiftly.managerspecials.di.ManagerSpecialsComponentProvider
 import com.swiftly.managerspecials.viewmodel.ManagerSpecialsViewModel
 import com.swiftly.managerspecials.databinding.FragmentManagerSpecialsBinding
@@ -57,21 +56,15 @@ class ManagerSpecialsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         binding = FragmentManagerSpecialsBinding.inflate(inflater, container, false)
-
         binding?.apply {
             vm = managerSpecialsViewModel
         }
-
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         managerSpecialsViewModel.updateSpecialsData()
-
-        //TODO: reintegrate notification of failure
-        //Toast.makeText(activity, this.getString(R.string.service_call_failure_message), Toast.LENGTH_LONG)
     }
 
     override fun onDestroyView() {

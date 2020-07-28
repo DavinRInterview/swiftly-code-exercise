@@ -41,6 +41,7 @@ import io.reactivex.schedulers.Schedulers
 class ManagerSpecialsViewModelImpl(private val repository: ManagerSpecialsRepository) : ManagerSpecialsViewModel {
 
     private val loading = ObservableBoolean(true)
+    private val showError = ObservableBoolean(false)
     private val specialsList = ObservableArrayList<ManagerSpecialsRowItem>()
     private val adapter: RecyclerView.Adapter<ManagerSpecialsViewHolder>
 
@@ -50,19 +51,20 @@ class ManagerSpecialsViewModelImpl(private val repository: ManagerSpecialsReposi
     }
 
     override fun updateSpecialsData() {
+        loading.set(true)
         repository.getManagerSpecials()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe ({
-                    loading.set(false)
-                    if (!specialsList.isEmpty()) {
-                        specialsList.clear()
-                    }
-                    specialsList.addAll(groupItems(it.canvasUnit, dataValidation(it.canvasUnit, it.managerSpecials)))
-                }, {
-                    loading.set(false)
-                    //failure
-                })
+                loading.set(false)
+                if (!specialsList.isEmpty()) {
+                    specialsList.clear()
+                }
+                specialsList.addAll(groupItems(it.canvasUnit, dataValidation(it.canvasUnit, it.managerSpecials)))
+            }, {
+                loading.set(false)
+                showError.set(true)
+            })
     }
 
     @VisibleForTesting
@@ -97,7 +99,11 @@ class ManagerSpecialsViewModelImpl(private val repository: ManagerSpecialsReposi
         return rowItems
     }
 
+    override fun dismissAlert() = showError.set(false)
+
     override fun getLoading(): ObservableBoolean = loading
+
+    override fun getShowError(): ObservableBoolean = showError
 
     override fun getSpecialsList(): ObservableList<ManagerSpecialsRowItem> = specialsList
 

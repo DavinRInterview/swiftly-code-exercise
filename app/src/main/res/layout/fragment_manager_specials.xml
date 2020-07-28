@@ -64,5 +64,45 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.025" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#efefef"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="@{vm.showError?View.VISIBLE:View.GONE}"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/snackbar_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="75"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:textAppearance="@style/TextAppearance.Design.Snackbar.Message"
+                android:text="@string/service_call_failure_message"
+                tools:text="This is a custom Snackbar text" />
+
+            <Button
+                android:id="@+id/snackbar_btn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_weight="25"
+                android:text="@string/okay"
+                android:onClick="@{() -> vm.dismissAlert()}"
+                android:textColor="@color/colorAccent" />
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
