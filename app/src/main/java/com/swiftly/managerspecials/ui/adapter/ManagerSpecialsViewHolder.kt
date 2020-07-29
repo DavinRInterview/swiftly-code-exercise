@@ -40,7 +40,7 @@ import com.swiftly.managerspecials.R
 import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
 import kotlin.math.min
 
-class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private val parent: ViewGroup) :
+open class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private val parent: ViewGroup) :
     RecyclerView.ViewHolder(inflater.inflate(R.layout.manager_special_row, parent, false)) {
 
     private var row: LinearLayout? = null
@@ -64,16 +64,16 @@ class ManagerSpecialsViewHolder(private val inflater: LayoutInflater, private va
             }
             newView.findViewById<TextView>(R.id.price_text).text = item.price
             val augment = (25 * (rowData.managerSpecialsItemList.size + 1)) / rowData.managerSpecialsItemList.size
+            val paddingUnit = newView.paddingBottom
             val newWidth = ((item.width.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - augment
-            val newHeight = ((item.height.toFloat() /rowData.canvasUnit) * parent.measuredWidth).toInt() - 30
+            val newHeight = (((item.height.toFloat() /rowData.canvasUnit) * parent.measuredWidth) - (paddingUnit * 2.5)).toInt()
             val smallerDimension = min((newWidth * 0.45).toInt(), (newHeight * 0.45).toInt())
             val heightDimension = (newHeight * 0.4).toInt()
             val smallerRatio = min((item.width.toFloat() /rowData.canvasUnit), (item.height.toFloat() /rowData.canvasUnit))
-            val paddingUnit = newView.paddingBottom
             newView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 width = newWidth
                 height = newHeight
-                //TODO: This is a hack, and an ugly one. Figure out why the set margins aren't rendering right
+                //TODO: This is a hack. Figure out why the set margins aren't rendering right
                 leftMargin = paddingUnit * 2
                 bottomMargin = (paddingUnit * 1.5).toInt()
                 topMargin = (paddingUnit * .75).toInt()

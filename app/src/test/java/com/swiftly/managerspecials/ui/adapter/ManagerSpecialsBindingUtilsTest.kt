@@ -23,17 +23,29 @@ SOFTWARE.
  */
 package com.swiftly.managerspecials.ui.adapter
 
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.jetbrains.annotations.NotNull
+import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import org.mockito.Mockito
 
-@BindingAdapter("adapter","data")
-fun <T> setRecyclerViewData(@NotNull recyclerView: RecyclerView, @NotNull adapter: RecyclerView.Adapter<*>, @NotNull items: T) {
-    recyclerView.adapter = adapter
-    if (adapter is BindableAdapter<*>) {
-        @Suppress("UNCHECKED_CAST")
-        (adapter as BindableAdapter<T>).setData(items)
-    } else {
-        throw TypeCastException("Attempted to bind to a non-Bindable Adapter")
+class ManagerSpecialsBindingUtilsTest {
+
+    val mockRecyclerView = Mockito.mock(RecyclerView::class.java)
+
+    @Test
+    fun testSetRecyclerViewData() {
+        val adapter = ManagerSpecialsAdapter()
+        val dataList : List<ManagerSpecialsRowItem> = listOf()
+        setRecyclerViewData(mockRecyclerView, adapter, dataList)
+        assertEquals(0, adapter.itemCount)
+    }
+
+    @Test(expected = TypeCastException::class)
+    fun testSetRecyclerViewData_NotBindable() {
+        val adapter = Mockito.mock(RecyclerView.Adapter::class.java)
+        val dataList : List<ManagerSpecialsRowItem> = listOf()
+        setRecyclerViewData(mockRecyclerView, adapter, dataList)
     }
 }
+

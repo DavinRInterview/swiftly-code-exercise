@@ -24,38 +24,43 @@ SOFTWARE.
 
 package com.swiftly.managerspecials.ui.adapter
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.annotation.NonNull
-import androidx.recyclerview.widget.RecyclerView
 import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import org.mockito.Mockito
+import org.mockito.Mockito.verify
 
-class ManagerSpecialsAdapter :
-    RecyclerView.Adapter<ManagerSpecialsViewHolder>(), BindableAdapter<List<ManagerSpecialsRowItem>> {
+class ManagerSpecialsAdapterTest {
 
-    private lateinit var data: List<ManagerSpecialsRowItem>
+    private val data = listOf(ManagerSpecialsRowItem(16, listOf()))
 
-    override fun setData(@NonNull data: List<ManagerSpecialsRowItem>) {
-        this.data = data
+    @Test
+    fun testGetItemCount() {
+        val adapter = ManagerSpecialsAdapter()
+        adapter.setData(data)
+        assertEquals(1, adapter.itemCount)
     }
 
-    override fun onCreateViewHolder(@NonNull parent: ViewGroup, @NonNull viewType: Int): ManagerSpecialsViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return ManagerSpecialsViewHolder(inflater, parent)
+    @Test(expected = UninitializedPropertyAccessException::class)
+    fun testGetItemCount_UnsetData() {
+        val adapter = ManagerSpecialsAdapter()
+        adapter.itemCount
     }
 
-    override fun getItemCount(): Int = data.size
-
-    override fun onBindViewHolder(@NonNull holder: ManagerSpecialsViewHolder, @NonNull position: Int) {
-        val item = data[position]
-        holder.bind(item)
+    @Test
+    fun testOnBindViewHolder() {
+        val mockHolder = Mockito.mock(ManagerSpecialsViewHolder::class.java)
+        val adapter = ManagerSpecialsAdapter()
+        adapter.setData(data)
+        adapter.onBindViewHolder(mockHolder, 0)
+        verify(mockHolder).bind(data[0])
     }
 
-    override fun getItemId(@NonNull position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getItemViewType(@NonNull position: Int): Int {
-        return position
+    @Test(expected = UninitializedPropertyAccessException::class)
+    fun testOnBindViewHolder_UnsetData() {
+        val mockHolder = Mockito.mock(ManagerSpecialsViewHolder::class.java)
+        val adapter = ManagerSpecialsAdapter()
+        adapter.onBindViewHolder(mockHolder, 0)
     }
 }
+

@@ -47,7 +47,6 @@ class ManagerSpecialsViewModelImpl(private val repository: ManagerSpecialsReposi
 
     init {
         adapter = ManagerSpecialsAdapter()
-        adapter.setHasStableIds(true)
     }
 
     override fun updateSpecialsData() {

@@ -55,7 +55,7 @@ class LaunchFragment : Fragment() {
             findNavController().navigate(R.id.action_LaunchFragment_to_ManagerSpecialsFragment)
         }
 
-        view.findViewById<Switch>(R.id.local_data_source_switch).setOnCheckedChangeListener { compoundButton, isChecked ->
+        view.findViewById<Switch>(R.id.local_data_source_switch).setOnCheckedChangeListener { _, isChecked ->
             val sharedPrefs = activity!!.getSharedPreferences(getString(R.string.testing_prefs), Context.MODE_PRIVATE)
             with (sharedPrefs.edit()) {
                 this.putBoolean(getString(R.string.local_data), isChecked)
@@ -63,7 +63,7 @@ class LaunchFragment : Fragment() {
             }
         }
 
-        view.findViewById<Switch>(R.id.service_failure_switch).setOnCheckedChangeListener { compoundButton, isChecked ->
+        view.findViewById<Switch>(R.id.service_failure_switch).setOnCheckedChangeListener { _, isChecked ->
             val sharedPrefs = activity!!.getSharedPreferences(getString(R.string.testing_prefs), Context.MODE_PRIVATE)
             with (sharedPrefs.edit()) {
                 this.putBoolean(getString(R.string.service_failure), isChecked)
