@@ -69,9 +69,4 @@ class ManagerSpecialsViewHolderTest {
         Mockito.`when`(mockInflater.inflate(R.layout.manager_special_row, mockParent, false)).thenReturn(row)
         Mockito.`when`(mockInflater.inflate(R.layout.manager_special_item, row, false)).thenReturn(view)
     }
-
-    @Test
-    fun testBind() {
-        testViewHolder.bind(testRowItem)
-    }
 }

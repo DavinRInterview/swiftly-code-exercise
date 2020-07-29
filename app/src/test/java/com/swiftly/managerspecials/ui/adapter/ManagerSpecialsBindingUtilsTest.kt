@@ -31,7 +31,7 @@ import org.mockito.Mockito
 
 class ManagerSpecialsBindingUtilsTest {
 
-    val mockRecyclerView = Mockito.mock(RecyclerView::class.java)
+    private val mockRecyclerView : RecyclerView = Mockito.mock(RecyclerView::class.java)
 
     @Test
     fun testSetRecyclerViewData() {

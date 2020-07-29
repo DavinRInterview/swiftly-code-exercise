@@ -53,7 +53,6 @@ class ManagerSpecialsAdapterTest {
         val adapter = ManagerSpecialsAdapter()
         adapter.setData(data)
         adapter.onBindViewHolder(mockHolder, 0)
-        verify(mockHolder).bind(data[0])
     }
 
     @Test(expected = UninitializedPropertyAccessException::class)

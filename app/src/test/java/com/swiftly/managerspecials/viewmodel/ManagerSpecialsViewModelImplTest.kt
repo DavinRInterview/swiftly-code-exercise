@@ -24,9 +24,13 @@ SOFTWARE.
 
 package com.swiftly.managerspecials.viewmodel
 
+import com.swiftly.managerspecials.rules.RxImmediateSchedulerRule
 import com.swiftly.managerspecials.service.ManagerSpecialsRepository
 import com.swiftly.managerspecials.service.model.ManagerSpecialsItem
+import com.swiftly.managerspecials.service.model.ManagerSpecialsResponse
+import io.reactivex.Single
 import org.junit.Assert.assertEquals
+import org.junit.ClassRule
 import org.junit.Test
 import org.mockito.Mockito
 
@@ -77,6 +81,12 @@ class ManagerSpecialsViewModelImplTest {
 
     private val repository: ManagerSpecialsRepository = Mockito.mock(ManagerSpecialsRepository::class.java)
     private val viewModel = ManagerSpecialsViewModelImpl(repository)
+
+    companion object {
+        @ClassRule
+        @JvmField
+        val schedulers = RxImmediateSchedulerRule()
+    }
 
     @Test
     fun testDataValidation() {
@@ -139,5 +149,26 @@ class ManagerSpecialsViewModelImplTest {
     fun testGroupItems() {
         var resultList = viewModel.groupItems(16, testList)
         assertEquals(4, resultList.size)
+    }
+
+    @Test
+    fun testUpdateSpecialsData() {
+        val testResponse = ManagerSpecialsResponse(16, testList)
+        Mockito.`when`(repository.getManagerSpecials()).thenReturn(Single.just(testResponse))
+        viewModel.updateSpecialsData()
+        assertEquals(false, viewModel.getLoading().get())
+        assertEquals(false, viewModel.getShowError().get())
+        assertEquals(4, viewModel.getSpecialsList().size)
+    }
+
+    @Test
+    fun testUpdateSpecialsData_Failure() {
+        Mockito.`when`(repository.getManagerSpecials()).thenReturn(Single.error(Throwable()))
+        viewModel.updateSpecialsData()
+        assertEquals(false, viewModel.getLoading().get())
+        assertEquals(true, viewModel.getShowError().get())
+        assertEquals(0, viewModel.getSpecialsList().size)
+        viewModel.dismissAlert()
+        assertEquals(false, viewModel.getShowError().get())
     }
 }
