@@ -22,33 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.swiftly.managerspecials.di
+package com.swiftly.managerspecials.utils
 
-import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import com.swiftly.managerspecials.R
-import com.swiftly.managerspecials.utils.LocalResourcesProvider
-import com.swiftly.managerspecials.utils.LocalResourcesProviderImpl
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import java.io.InputStream
 
-@Module
-class AppModule(private val app: Application) {
+class LocalResourcesProviderImpl(private val context: Context) : LocalResourcesProvider {
 
-    @Provides
-    @Singleton
-    fun provideContext(): Context = app
-
-    @Provides
-    @Singleton
-    fun provideResourceProvider(context: Context): LocalResourcesProvider = LocalResourcesProviderImpl(context)
-
-    @Provides
-    @Singleton
-    fun provideSharedPreferences(context: Context): SharedPreferences =
-        context.getSharedPreferences(context.getString(R.string.testing_prefs),
-            Context.MODE_PRIVATE
-        )
+    override fun getServiceFailureString(): String = context.getString(R.string.service_failure)
+    override fun getLocalDataString(): String = context.getString(R.string.local_data)
+    override fun getLocalDataInputStream(): InputStream = context.resources.openRawResource(R.raw.local_data_response)
 }

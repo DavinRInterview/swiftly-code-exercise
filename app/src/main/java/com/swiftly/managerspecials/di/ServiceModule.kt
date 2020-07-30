@@ -29,6 +29,7 @@ import androidx.annotation.NonNull
 import com.swiftly.managerspecials.service.ManagerSpecialsApi
 import com.swiftly.managerspecials.service.ManagerSpecialsLocalDataSource
 import com.swiftly.managerspecials.service.ManagerSpecialsLocalDataSourceImpl
+import com.swiftly.managerspecials.utils.LocalResourcesProvider
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -66,7 +67,7 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun provideManagerSpecialLocalDataSource(@NonNull context: Context) : ManagerSpecialsLocalDataSource {
-        return ManagerSpecialsLocalDataSourceImpl(context)
+    fun provideManagerSpecialLocalDataSource(@NonNull localResourcesProvider: LocalResourcesProvider) : ManagerSpecialsLocalDataSource {
+        return ManagerSpecialsLocalDataSourceImpl(localResourcesProvider)
     }
 }

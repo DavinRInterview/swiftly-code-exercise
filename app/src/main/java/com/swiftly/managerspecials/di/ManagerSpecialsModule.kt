@@ -24,12 +24,13 @@ SOFTWARE.
 
 package com.swiftly.managerspecials.di
 
-import android.content.Context
+import android.content.SharedPreferences
 import androidx.annotation.NonNull
 import com.swiftly.managerspecials.service.ManagerSpecialsApi
 import com.swiftly.managerspecials.service.ManagerSpecialsLocalDataSource
 import com.swiftly.managerspecials.service.ManagerSpecialsRepository
 import com.swiftly.managerspecials.service.model.ManagerSpecialsRepositoryImpl
+import com.swiftly.managerspecials.utils.LocalResourcesProvider
 import com.swiftly.managerspecials.viewmodel.ManagerSpecialsViewModel
 import com.swiftly.managerspecials.viewmodel.ManagerSpecialsViewModelImpl
 import dagger.Module
@@ -41,8 +42,8 @@ class ManagerSpecialsModule {
     @Provides
     @ManagerSpecialsScope
     fun provideManagerSpecialsRepository(@NonNull managerSpecialsApi: ManagerSpecialsApi, @NonNull localDataSource: ManagerSpecialsLocalDataSource,
-                                         @NonNull context: Context) : ManagerSpecialsRepository
-            = ManagerSpecialsRepositoryImpl(managerSpecialsApi, localDataSource, context)
+                                         @NonNull localResourcesProvider: LocalResourcesProvider, @NonNull sharedPreferences: SharedPreferences) : ManagerSpecialsRepository
+            = ManagerSpecialsRepositoryImpl(managerSpecialsApi, localDataSource, localResourcesProvider, sharedPreferences)
 
     @Provides
     @ManagerSpecialsScope

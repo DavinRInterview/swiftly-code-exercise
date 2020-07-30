@@ -28,7 +28,6 @@ import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.Mockito
-import org.mockito.Mockito.verify
 
 class ManagerSpecialsAdapterTest {
 

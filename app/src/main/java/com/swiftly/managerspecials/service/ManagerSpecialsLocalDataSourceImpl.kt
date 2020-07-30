@@ -29,12 +29,13 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.swiftly.managerspecials.R
 import com.swiftly.managerspecials.service.model.ManagerSpecialsResponse
+import com.swiftly.managerspecials.utils.LocalResourcesProvider
 import io.reactivex.Single
 import java.io.IOException
 import java.util.Collections
 import kotlin.concurrent.thread
 
-class ManagerSpecialsLocalDataSourceImpl(private val context: Context) :
+class ManagerSpecialsLocalDataSourceImpl(private val localResourcesProvider: LocalResourcesProvider) :
     ManagerSpecialsLocalDataSource {
     override fun getLocalManagerSpecials() : Single<ManagerSpecialsResponse> {
 
@@ -42,7 +43,7 @@ class ManagerSpecialsLocalDataSourceImpl(private val context: Context) :
             thread(start = true) {
                 val jsonString: String
                 try {
-                    jsonString = context.resources.openRawResource(R.raw.local_data_response).bufferedReader().use { it.readText() }
+                    jsonString = localResourcesProvider.getLocalDataInputStream().bufferedReader().use { it.readText() }
                     val gson = Gson()
                     val responseType = object : TypeToken<ManagerSpecialsResponse>() {}.type
                     val managerSpecialsResponse : ManagerSpecialsResponse = gson.fromJson(jsonString, responseType)
