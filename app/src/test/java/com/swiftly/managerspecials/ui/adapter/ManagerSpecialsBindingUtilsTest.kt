@@ -21,20 +21,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+package com.swiftly.managerspecials.ui.adapter
 
-package com.swiftly.managerspecials.viewmodel
-
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableList
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.swiftly.managerspecials.ui.adapter.ManagerSpecialsViewHolder
+import androidx.recyclerview.widget.RecyclerView
 import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import org.mockito.Mockito
 
-interface ManagerSpecialsViewModel {
-    fun getLoading(): ObservableBoolean
-    fun getShowError(): ObservableBoolean
-    fun getSpecialsList(): ObservableList<ManagerSpecialsRowItem>
-    fun getAdapter(): Adapter<ManagerSpecialsViewHolder>
-    fun dismissAlert()
-    fun updateSpecialsData()
+class ManagerSpecialsBindingUtilsTest {
+
+    private val mockRecyclerView : RecyclerView = Mockito.mock(RecyclerView::class.java)
+
+    @Test
+    fun testSetRecyclerViewData() {
+        val adapter = ManagerSpecialsAdapter()
+        val dataList : List<ManagerSpecialsRowItem> = listOf()
+        setRecyclerViewData(mockRecyclerView, adapter, dataList)
+        assertEquals(0, adapter.itemCount)
+    }
+
+    @Test(expected = TypeCastException::class)
+    fun testSetRecyclerViewData_NotBindable() {
+        val adapter = Mockito.mock(RecyclerView.Adapter::class.java)
+        val dataList : List<ManagerSpecialsRowItem> = listOf()
+        setRecyclerViewData(mockRecyclerView, adapter, dataList)
+    }
 }
+

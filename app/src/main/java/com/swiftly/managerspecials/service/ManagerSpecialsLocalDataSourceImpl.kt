@@ -32,21 +32,25 @@ import com.swiftly.managerspecials.service.model.ManagerSpecialsResponse
 import io.reactivex.Single
 import java.io.IOException
 import java.util.Collections
+import kotlin.concurrent.thread
 
 class ManagerSpecialsLocalDataSourceImpl(private val context: Context) :
     ManagerSpecialsLocalDataSource {
     override fun getLocalManagerSpecials() : Single<ManagerSpecialsResponse> {
 
-        val jsonString: String
-        try {
-            jsonString = context.resources.openRawResource(R.raw.local_data_response).bufferedReader().use { it.readText() }
-            val gson = Gson()
-            val responseType = object : TypeToken<ManagerSpecialsResponse>() {}.type
-            val response : ManagerSpecialsResponse = gson.fromJson(jsonString, responseType)
-            return Single.just(response)
-        } catch (e: Exception) { //catches either IO or parse exception. This is debug, so not that worried about precision
-            return Single.just(ManagerSpecialsResponse(0, Collections.emptyList()))
+        return Single.create {
+            thread(start = true) {
+                val jsonString: String
+                try {
+                    jsonString = context.resources.openRawResource(R.raw.local_data_response).bufferedReader().use { it.readText() }
+                    val gson = Gson()
+                    val responseType = object : TypeToken<ManagerSpecialsResponse>() {}.type
+                    val managerSpecialsResponse : ManagerSpecialsResponse = gson.fromJson(jsonString, responseType)
+                    it.onSuccess(managerSpecialsResponse)
+                } catch (e: Exception) { //catches either IO or parse exception. This is debug, so not that worried about precision
+                    it.onError(e)
+                }
+            }
         }
     }
-
 }

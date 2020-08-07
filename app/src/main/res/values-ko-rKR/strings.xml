@@ -3,4 +3,5 @@
     <string name="manager_specials_header">관리자 스페셜</string>
     <string name="service_call_failure_message">"죄송합니다. 데이터를 가져 오지 못했습니다."</string>
     <string name="product_image">제품 이미지</string>
+    <string name="okay">괜찮아</string>
 </resources>

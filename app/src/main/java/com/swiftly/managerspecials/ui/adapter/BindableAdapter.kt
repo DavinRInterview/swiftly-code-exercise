@@ -22,19 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 
-package com.swiftly.managerspecials.viewmodel
+package com.swiftly.managerspecials.ui.adapter
 
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableList
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.swiftly.managerspecials.ui.adapter.ManagerSpecialsViewHolder
-import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
-
-interface ManagerSpecialsViewModel {
-    fun getLoading(): ObservableBoolean
-    fun getShowError(): ObservableBoolean
-    fun getSpecialsList(): ObservableList<ManagerSpecialsRowItem>
-    fun getAdapter(): Adapter<ManagerSpecialsViewHolder>
-    fun dismissAlert()
-    fun updateSpecialsData()
+interface BindableAdapter<T> {
+    fun setData(data : T)
 }

@@ -21,20 +21,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+package com.swiftly.managerspecials.ui.adapter
 
-package com.swiftly.managerspecials.viewmodel
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import org.jetbrains.annotations.NotNull
 
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableList
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.swiftly.managerspecials.ui.adapter.ManagerSpecialsViewHolder
-import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
-
-interface ManagerSpecialsViewModel {
-    fun getLoading(): ObservableBoolean
-    fun getShowError(): ObservableBoolean
-    fun getSpecialsList(): ObservableList<ManagerSpecialsRowItem>
-    fun getAdapter(): Adapter<ManagerSpecialsViewHolder>
-    fun dismissAlert()
-    fun updateSpecialsData()
+@BindingAdapter("adapter","data")
+fun <T> setRecyclerViewData(@NotNull recyclerView: RecyclerView, @NotNull adapter: RecyclerView.Adapter<*>, @NotNull items: T) {
+    recyclerView.adapter = adapter
+    if (adapter is BindableAdapter<*>) {
+        @Suppress("UNCHECKED_CAST")
+        (adapter as BindableAdapter<T>).setData(items)
+    } else {
+        throw TypeCastException("Attempted to bind to a non-Bindable Adapter")
+    }
 }

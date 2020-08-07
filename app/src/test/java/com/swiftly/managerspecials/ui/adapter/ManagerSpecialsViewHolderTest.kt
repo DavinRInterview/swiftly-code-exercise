@@ -24,12 +24,49 @@ SOFTWARE.
 
 package com.swiftly.managerspecials.ui.adapter
 
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.swiftly.managerspecials.R
+import com.swiftly.managerspecials.service.model.ManagerSpecialsItem
+import com.swiftly.managerspecials.ui.model.ManagerSpecialsRowItem
+import org.junit.Before
 import org.junit.Test
+import org.mockito.Mockito
 
 class ManagerSpecialsViewHolderTest {
 
-    @Test
-    fun testBind() {
-        //This is the test method in particular mentioned in the Readme that I'm hoping to fill out
+    val mockInflater = Mockito.mock(LayoutInflater::class.java)
+    val mockParent = Mockito.mock(ViewGroup::class.java)
+    val mockContext = Mockito.mock(Context::class.java)
+    val row = LinearLayout(mockContext)
+    val view = ConstraintLayout(mockContext)
+
+    val testViewHolder = ManagerSpecialsViewHolder(mockInflater, mockParent)
+
+    val testRowItem = ManagerSpecialsRowItem(16, listOf(
+        ManagerSpecialsItem(
+        "Onion Flavored Rings",
+        "https://raw.githubusercontent.com/prestoqinc/code-exercise-ios/master/images/J.png",
+        "2.00",
+        "1.00",
+        8,
+        8
+    ),
+    ManagerSpecialsItem(
+        "Kikkoman Less Sodium Soy Sauce",
+        "https://raw.githubusercontent.com/prestoqinc/code-exercise-ios/master/images/K.png",
+        "2.00",
+        "1.00",
+        8,
+        8
+    )))
+
+    @Before
+    fun setup() {
+        Mockito.`when`(mockInflater.inflate(R.layout.manager_special_row, mockParent, false)).thenReturn(row)
+        Mockito.`when`(mockInflater.inflate(R.layout.manager_special_item, row, false)).thenReturn(view)
     }
 }

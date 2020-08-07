@@ -45,4 +45,19 @@
         app:layout_constraintTop_toBottomOf="@+id/manager_specials_fragment_button"
         app:layout_constraintVertical_bias="0.086" />
 
+    <Switch
+        android:id="@+id/service_failure_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:showText="true"
+        android:textOff="Service Failure Off"
+        android:textOn="Service Failure On"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/local_data_source_switch"
+        app:layout_constraintStart_toStartOf="@+id/local_data_source_switch"
+        app:layout_constraintTop_toBottomOf="@+id/local_data_source_switch"
+        app:layout_constraintVertical_bias="0.086" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
